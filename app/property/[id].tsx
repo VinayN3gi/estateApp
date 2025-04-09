@@ -12,3 +12,6 @@ const Property = () => {
         </View>
     )
 }
+
+
+export default Property;
