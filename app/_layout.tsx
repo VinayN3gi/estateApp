@@ -3,6 +3,7 @@ import "./global.css"
 import {useFonts} from "expo-font";
 import {useEffect} from "react";
 import React from "react";
+import { AuthProvider } from "@/context/AuthContext";
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useFonts({
     "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
@@ -21,5 +22,10 @@ export default function RootLayout() {
 
   if(!fontsLoaded) return null;
 
-  return (<Stack  screenOptions={{headerShown: false}}/>)
+  return (
+    <AuthProvider>
+      <Stack  screenOptions={{headerShown: false}}/>
+    </AuthProvider>
+    
+  )
 }
