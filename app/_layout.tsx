@@ -4,6 +4,7 @@ import {useFonts} from "expo-font";
 import {useEffect} from "react";
 import React from "react";
 import { AuthProvider } from "@/context/AuthContext";
+import { StatusBar } from "react-native";
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useFonts({
     "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
@@ -24,7 +25,8 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <Stack  screenOptions={{headerShown: false}}/>
+       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+      <Stack screenOptions={{headerShown: false}}/>
     </AuthProvider>
     
   )

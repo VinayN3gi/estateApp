@@ -13,4 +13,3 @@ const Explore = () => {
     )
 }
 export default Explore
-const styles = StyleSheet.create({})
