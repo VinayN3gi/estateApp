@@ -2,6 +2,7 @@ import {SplashScreen, Stack} from "expo-router";
 import "./global.css"
 import {useFonts} from "expo-font";
 import {useEffect} from "react";
+import React from "react";
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useFonts({
     "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
@@ -20,5 +21,5 @@ export default function RootLayout() {
 
   if(!fontsLoaded) return null;
 
-  return <Stack  screenOptions={{headerShown: false}}/>;
+  return (<Stack  screenOptions={{headerShown: false}}/>)
 }

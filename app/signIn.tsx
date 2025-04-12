@@ -1,49 +1,65 @@
-import {Image, Animated, SafeAreaView,Text, View, TouchableOpacity} from 'react-native'
-import React from 'react'
-import ScrollView = Animated.ScrollView;
-import images from "@/constants/images";
-import icons from "@/constants/icons";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { View, Text, SafeAreaView, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useState } from 'react'
+
+const signIn = () => {
+    const [email,setEmail]=useState("");
+    const [password,setPassword]=useState("");
+    const [isLoading,setLoading]=useState(false);
+
+    const handleSignIn=async ()=>{
+        console.log(email,password)
+    }
 
 
-const SignIn = () => {
+  return (
+    <SafeAreaView className='flex-1 bg-white'>
+        <ScrollView contentContainerStyle={{flexGrow : 1}} className='px-6 py-12'>
 
-    
+            <Text className='text-lg text-center text-gray-800 font-light'>
+                Welcome to ReState
+            </Text>
 
-    return (
-        <SafeAreaView className="bg-white h-full">
-            <ScrollView contentContainerClassName="h-full">
-                <Image source={images.onboarding} className="w-full h-4/6" resizeMode="contain"/>
-                <View className="px-10">
-                    <Text className="text-base text-center uppercase font-rubik text-black-200">
-                        Welcome to ReState
-                    </Text>
+            <Text className='text-3xl font-bold text-center mt-2'>
+                Let's Get You Closer to {"\n"}
+                <Text className='text-blue-500'> Your Ideal Home</Text>
+            </Text>
+            
+            <Text className='text-lg text-center mt-12 text-gray-600'>Create an account</Text>
 
-                    <Text className={"text-3xl font-rubik-bold text-black-300 text-center mt-2"}>
-                        Lets's Get You Closer to {"\n"}
-                        <Text className={"text-primary-300 "}>
-                            Your Ideal Home
-                        </Text>
-                    </Text>
+            {/*Email input field */}
+            <TextInput 
+            className='mt-8 border border-gray-300 rounded-lg p-4 text-lg'
+            placeholder='Enter your email'
+            keyboardType='email-address'
+            value={email}
+            onChangeText={setEmail}/>
 
-                    <Text className={"text-lg font-rubik text-black-300 text-center mt-12"}>
-                        Login to ReState with Google
-                    </Text>
+            {/*Password input field */} 
+            <TextInput
+            className='mt-4 border border-gray-300 rounded-lg p-4 text-lg'
+            placeholder='Enter your password'
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            />
 
-                    <TouchableOpacity className={"bg-white shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5 mb-8"}>
-                        <View className="flex flex-row items-center justify-center ">
-                            <Image source={icons.google} className={"w-5 h-5"} resizeMode="contain"/>
-                            <Text className={"text-lg font-rubik-medium text-black-300 ml-2"}>
-                                Continue with Google
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+        <TouchableOpacity
+          className="bg-blue-500 rounded-full py-4 mt-8 flex items-center justify-center"
+          onPress={handleSignIn}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator size="large" color="white" />
+          ) : (
+            <Text className="text-white text-lg font-semibold">Sign In</Text>
+          )}
+        </TouchableOpacity>
 
-                </View>
-            </ScrollView>
 
-        </SafeAreaView>
-    )
+        </ScrollView>
+
+    </SafeAreaView>
+  )
 }
-export default SignIn
 
+export default signIn
