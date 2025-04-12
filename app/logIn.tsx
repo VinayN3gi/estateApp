@@ -1,6 +1,7 @@
 import { View, Text, SafeAreaView, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router';
+import { signIn } from '@/lib/appwrite';
 
 const logIn = () => {
    
@@ -10,7 +11,15 @@ const logIn = () => {
   const router=useRouter();
 
   const handleLogin=async()=>{
-    console.log(email,password);
+    setLoading(true)
+    try {
+      await signIn(email,password);
+      router.replace("/home")
+    } 
+    catch (error) {
+      console.error("Sign In error",error);
+    }
+    setLoading(false);
   }
 
   return (

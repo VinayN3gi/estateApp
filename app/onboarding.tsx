@@ -7,6 +7,9 @@ import { useRouter } from 'expo-router';
 
 const Onboarding = () => { 
     const router=useRouter();
+
+
+    
     return (
         <SafeAreaView className="bg-white h-full">
             <ScrollView contentContainerClassName="h-full">

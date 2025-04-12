@@ -15,6 +15,25 @@ export const signUp=async(email:string,password:string)=>
    catch (error) {
     console.log("Sign Up error",error);
     throw error;
-
    }
 }
+
+export const signIn=async (email:string,password:string)=>{
+   try {
+      const session=await account.createEmailPasswordSession(email,password);
+      return session;
+   } catch (error) {
+      console.error("Log In error",error);
+      throw error;
+   }
+}
+
+export const getUser=async()=>{
+   try {
+      const user=await account.get();
+      return {success:true,user};
+   } catch (error) {
+      return {success:false,messgae:"Failed to fecth user"}
+   }
+}
+
