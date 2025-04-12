@@ -1,13 +1,25 @@
 import { View, Text, SafeAreaView, ScrollView, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
+import { useRouter } from 'expo-router';
+import { signUp } from '@/lib/appwrite';
 
-const signIn = () => {
+const SignUp = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [isLoading,setLoading]=useState(false);
+    const router=useRouter();
 
     const handleSignIn=async ()=>{
-        console.log(email,password)
+        setLoading(true);
+        try {
+          await signUp(email,password);
+          router.replace("/home");
+        } 
+        catch (error)
+        {
+            console.log("Sign-up error",error);
+        }
+        setLoading(false);
     }
 
 
@@ -55,6 +67,12 @@ const signIn = () => {
           )}
         </TouchableOpacity>
 
+          <View className='flex-row justify-center mt-6'>
+            <Text className='text-gray-600 text-base'> Already have an account ?</Text>
+            <TouchableOpacity onPress={()=>router.push("/logIn")}>
+                <Text className='text-blue-500 font-medium text-base'>Log In</Text>
+            </TouchableOpacity>
+          </View>
 
         </ScrollView>
 
@@ -62,4 +80,4 @@ const signIn = () => {
   )
 }
 
-export default signIn
+export default SignUp

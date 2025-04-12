@@ -29,7 +29,7 @@ const Onboarding = () => {
 
                     <TouchableOpacity className={"bg-white shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5 mb-8"}
                     onPress={() => {
-                        router.replace("/signIn");
+                        router.push("/signUp");
                     }}
                     >
                         <View className="flex flex-row items-center justify-center ">
