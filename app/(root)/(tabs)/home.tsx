@@ -3,6 +3,7 @@ import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import Search from '@/components/Search';
 import { FeaturedCard, RegularCard } from '@/components/Cards';
+import Filters from '@/components/Filters';
 
 export default function home() {
   const {user}=useAuth();
@@ -30,7 +31,9 @@ export default function home() {
         </View>
       </View>
 
-    <View className='flex flex-row gap-5 mt-5'>
+    <Filters/>
+
+    <View className='flex flex-row gap-5'>
          <RegularCard/>
         <RegularCard/>
     </View>
