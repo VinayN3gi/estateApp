@@ -14,7 +14,7 @@ export const client=new Client();
 client.setEndpoint(config.endpoint!).setProject(config.projectId!)
 
 export const account=new Account(client);
-export const database=new Databases(client);
+export const databases=new Databases(client);
 
 export const signUp=async(email:string,password:string)=>
 {

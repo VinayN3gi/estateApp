@@ -1,9 +1,10 @@
-import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import Search from '@/components/Search';
 import { FeaturedCard, RegularCard } from '@/components/Cards';
 import Filters from '@/components/Filters';
+import seed from '@/lib/seed';
 
 export default function home() {
   const {user}=useAuth();
@@ -11,7 +12,6 @@ export default function home() {
 
   return (
     <SafeAreaView className='h-full bg-white px-6'>
-
       <FlatList
       data={[1,2,3,4]}
       renderItem={({item})=><RegularCard/>}
