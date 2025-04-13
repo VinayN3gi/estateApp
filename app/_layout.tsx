@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import React from "react";
 import { AuthProvider } from "@/context/AuthContext";
 import { StatusBar } from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useFonts({
     "Rubik-Bold": require("../assets/fonts/Rubik-Bold.ttf"),
@@ -15,6 +16,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    NavigationBar.setBackgroundColorAsync("transparent");
     if(fontsLoaded)
     {
       SplashScreen.hideAsync();
