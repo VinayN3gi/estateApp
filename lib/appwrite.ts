@@ -37,3 +37,13 @@ export const getUser=async()=>{
    }
 }
 
+export const logOut=async()=>{
+   try {
+      await account.deleteSession("current");
+      return true;
+   } catch (error) {
+      console.error("Log Out error",error);
+      return false;
+   }
+}
+
