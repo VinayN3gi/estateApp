@@ -17,6 +17,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync("transparent");
+    NavigationBar.setVisibilityAsync("hidden");
     if(fontsLoaded)
     {
       SplashScreen.hideAsync();
