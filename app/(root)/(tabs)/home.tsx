@@ -2,6 +2,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import Search from '@/components/Search';
+import { FeaturedCard } from '@/components/Cards';
 
 export default function home() {
   const {user}=useAuth();
@@ -17,7 +18,9 @@ export default function home() {
         </View>
       </View>
 
-      
+      <FeaturedCard/>
+
+
     </SafeAreaView>
   )
 }
