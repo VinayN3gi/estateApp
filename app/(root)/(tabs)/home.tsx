@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
 import Search from '@/components/Search';
@@ -7,41 +7,47 @@ import Filters from '@/components/Filters';
 
 export default function home() {
   const {user}=useAuth();
+  console.log(user)
 
   return (
     <SafeAreaView className='h-full bg-white px-6'>
-      <Search/>
+
+      <FlatList
+      data={[1,2,3,4]}
+      renderItem={({item})=><RegularCard/>}
+      keyExtractor={(item)=>item.toString()}
+      numColumns={2}
+      contentContainerClassName='pb-32'
+      columnWrapperClassName='flex gap-3 '
+      showsVerticalScrollIndicator={false}
       
-      <View className='my-5'>
-        <View className='flex flex-row items-center justify-between'>
-          <Text className='text-xl font-rubik-bol text-black-300'>Featured</Text>
-          <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
-        </View>
-      </View>
+      ListHeaderComponent={
+        <>
+        <Search />
+        <View className='my-5'>
+          <View className='flex flex-row items-center justify-between'>
+            <Text className='text-xl font-rubik-bold text-black-300'>Featured</Text>
+            <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
+          </View>
 
-      <View className='flex flex-row gap-5 mt-5'>
-        <FeaturedCard/>
-        <FeaturedCard/>
-      </View>
+          <FlatList data={[1,2,3]}
+          keyExtractor={(item)=>item.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          contentContainerClassName='flex gap-5'
+          renderItem={({item})=><FeaturedCard/>}
+          />
 
-      <View className='my-5'>
-        <View className='flex flex-row items-center justify-between'>
-          <Text className='text-xl font-rubik-bol text-black-300'>Recomendation</Text>
-          <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
-        </View>
-      </View>
-
-    <Filters/>
-
-    <View className='flex flex-row gap-5'>
-         <RegularCard/>
-        <RegularCard/>
-    </View>
-
-
-   
-
-
+          <View className='flex flex-row items-center justify-between mt-5'>
+            <Text className='text-xl font-rubik-bold text-black-300'>Our Recommendation</Text>
+            <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
+          </View>
+          </View>
+          <Filters/>
+          </>
+      }
+      />
     </SafeAreaView>
   )
 }
