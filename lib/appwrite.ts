@@ -1,9 +1,20 @@
-import {Client,Account,ID} from "appwrite"
+import {Client,Account,ID, Databases} from "appwrite"
 
-const client=new Client();
-client.setEndpoint(process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!).setProject(process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!)
 
-const account=new Account(client);
+export const config={
+   platform:'com.test.estateApp',
+   endpoint:process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
+   projectId:process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
+   databaseId:process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID,
+   galleriesCollectionId:process.env.EXPO_PUBLIC_APPWRITE_GALLERIES_COLLECTION_ID,
+   propertiesCollectionId:process.env.EXPO_PUBLIC_APPWRITE_PROPERTIES_COLLECTION_ID
+}
+
+export const client=new Client();
+client.setEndpoint(config.endpoint!).setProject(config.projectId!)
+
+export const account=new Account(client);
+export const database=new Databases(client);
 
 export const signUp=async(email:string,password:string)=>
 {

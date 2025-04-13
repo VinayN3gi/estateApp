@@ -7,7 +7,7 @@ import Filters from '@/components/Filters';
 
 export default function home() {
   const {user}=useAuth();
-  console.log(user)
+
 
   return (
     <SafeAreaView className='h-full bg-white px-6'>
