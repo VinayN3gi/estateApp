@@ -5,18 +5,23 @@ import Search from '@/components/Search';
 import { FeaturedCard, RegularCard } from '@/components/Cards';
 import Filters from '@/components/Filters';
 import seed from '@/lib/seed';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getLatestProperties, getProperties } from '@/lib/appwrite';
 import { Property } from '@/lib/propertyInterface';
+import NoResults from '@/components/NoResults';
 
 export default function home() {
   const {user}=useAuth();
+  const router=useRouter();
   const params=useLocalSearchParams<{query?:string;filter?:string}>()
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties,setFilteredProperies]=useState<Property[]>([]);
   const [loadingAll,setLoadingAll]=useState(false);
 
   const [loadingFiltered,setLoadingFiltered]=useState(false);
+
+
+  const handleCardPress=(id:string)=>router.push(`/property/${id}`);
 
 
   useEffect(()=>{
@@ -36,7 +41,6 @@ export default function home() {
 
   const fetchFiltered=async ()=>{
     setLoadingFiltered(true)
-    console.log(params.filter,params.query)
     const data:Property[]=await getProperties({filter : params.filter!,query:params.query!})
     setFilteredProperies(data)
     setLoadingFiltered(false)
@@ -70,7 +74,7 @@ export default function home() {
           showsHorizontalScrollIndicator={false}
           bounces={false}
           contentContainerClassName='flex gap-5'
-          renderItem={({item})=><FeaturedCard item={item}/>}
+          renderItem={({item})=><FeaturedCard item={item} onPress={()=>handleCardPress(item.$id)}/>}
           />
 
           <View className='flex flex-row items-center justify-between mt-5'>
@@ -93,11 +97,14 @@ export default function home() {
     <SafeAreaView className='h-full bg-white px-6'>
       <FlatList
       data={filteredProperties}
-      renderItem={({item})=><RegularCard item={item}/>}
+      renderItem={({item})=><RegularCard item={item} onPress={()=>handleCardPress(item.$id)}/>}
       keyExtractor={(item)=>item.$id}
       numColumns={2}
       contentContainerClassName='pb-32'
       columnWrapperClassName='flex gap-3 '
+      ListEmptyComponent={
+        <NoResults/>
+      }
       showsVerticalScrollIndicator={false}
       
       ListHeaderComponent={
@@ -114,7 +121,7 @@ export default function home() {
           showsHorizontalScrollIndicator={false}
           bounces={false}
           contentContainerClassName='flex gap-5'
-          renderItem={({item})=><FeaturedCard item={item}/>}
+          renderItem={({item})=><FeaturedCard item={item} onPress={()=>handleCardPress(item.$id)}/>}
           />
 
           <View className='flex flex-row items-center justify-between mt-5'>
