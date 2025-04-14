@@ -68,6 +68,7 @@ export async function getLatestProperties()
          config.propertiesCollectionId!,
          [Query.orderAsc('$createdAt'),Query.limit(5)]
       )   
+
       return result.documents as Property[];
    } 
    catch (error) {
@@ -96,10 +97,11 @@ export async function getProperties({filter ,query,limit}:{filter:string;query:s
          ]))
       }
 
-      if(filter=='All')
+      if(limit)
       {
-         buildQuery.push(Query.limit(6));
+         buildQuery.push(Query.limit(limit));
       }
+
 
       const result=await databases.listDocuments(
          config.databaseId!,

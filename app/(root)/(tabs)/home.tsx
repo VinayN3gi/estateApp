@@ -1,10 +1,8 @@
 import { ActivityIndicator, Button, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
-import Search from '@/components/Search';
 import { FeaturedCard, RegularCard } from '@/components/Cards';
 import Filters from '@/components/Filters';
-import seed from '@/lib/seed';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getLatestProperties, getProperties } from '@/lib/appwrite';
 import { Property } from '@/lib/propertyInterface';
@@ -41,7 +39,7 @@ export default function home() {
 
   const fetchFiltered=async ()=>{
     setLoadingFiltered(true)
-    const data:Property[]=await getProperties({filter : params.filter!,query:params.query!})
+    const data:Property[]=await getProperties({filter : params.filter!,query:params.query!,limit:6})
     setFilteredProperies(data)
     setLoadingFiltered(false)
   }
