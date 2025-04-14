@@ -14,7 +14,10 @@ export default function home() {
   const params=useLocalSearchParams<{query?:string;filter?:string}>()
   const [properties, setProperties] = useState<Property[]>([]);
   const [filteredProperties,setFilteredProperies]=useState<Property[]>([]);
-  const [loading,setLoading]=useState(false);
+  const [loadingAll,setLoadingAll]=useState(false);
+
+  const [loadingFiltered,setLoadingFiltered]=useState(false);
+
 
   useEffect(()=>{
     fetchLatest()
@@ -25,24 +28,23 @@ export default function home() {
   },[params.filter,params.query])
 
   const fetchLatest=async ()=>{
-    setLoading(true)
+    setLoadingAll(true)
     const data :Property[]=await getLatestProperties()
     setProperties(data);
-    setLoading(false)
+    setLoadingAll(false)
   }
 
   const fetchFiltered=async ()=>{
-    setLoading(true)
+    setLoadingFiltered(true)
     console.log(params.filter,params.query)
-    const data:Property[]=await getProperties({filter : params.filter!,query:params.query!,limit:6})
+    const data:Property[]=await getProperties({filter : params.filter!,query:params.query!})
     setFilteredProperies(data)
-    setLoading(false)
+    setLoadingFiltered(false)
   }
 
 
 
-
-  if(loading)
+  if(loadingAll)
   {
     return (
       <SafeAreaView className="flex-1 items-center justify-center bg-white px-6">
@@ -52,12 +54,46 @@ export default function home() {
     );
   }
 
+  else if(loadingFiltered)
+  {
+    return(
+      <SafeAreaView className='h-full bg-white px-6'>
+         <View className='my-5 flex flex-1'>
+          <View className='flex flex-row items-center justify-between mt-14'>
+            <Text className='text-xl font-rubik-bold text-black-300'>Featured</Text>
+            <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
+          </View>
+
+          <FlatList data={properties}
+          keyExtractor={(item)=>item.$id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          contentContainerClassName='flex gap-5'
+          renderItem={({item})=><FeaturedCard item={item}/>}
+          />
+
+          <View className='flex flex-row items-center justify-between mt-5'>
+            <Text className='text-xl font-rubik-bold text-black-300'>Our Recommendation</Text>
+            <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
+          </View>
+          </View>
+          <Filters/>
+          <View className="flex-1 items-center justify-center bg-white px-6">
+          <ActivityIndicator size="large" className='color-primary-300' />
+          <Text className="mt-4 text-lg font-rubik-medium text-black-300">Fetching properties...</Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+
   return (
 
     <SafeAreaView className='h-full bg-white px-6'>
       <FlatList
-      data={properties}
-      renderItem={({item})=><RegularCard/>}
+      data={filteredProperties}
+      renderItem={({item})=><RegularCard item={item}/>}
       keyExtractor={(item)=>item.$id}
       numColumns={2}
       contentContainerClassName='pb-32'
@@ -66,20 +102,19 @@ export default function home() {
       
       ListHeaderComponent={
         <>
-        <Search />
-        <View className='my-5'>
-          <View className='flex flex-row items-center justify-between'>
+        <View className='my-5 flex flex-1'>
+          <View className='flex flex-row items-center justify-between mt-14'>
             <Text className='text-xl font-rubik-bold text-black-300'>Featured</Text>
             <Text className='text-base font-rubik-bold text-primary-300'>See All</Text>
           </View>
 
-          <FlatList data={filteredProperties}
+          <FlatList data={properties}
           keyExtractor={(item)=>item.$id}
           horizontal
           showsHorizontalScrollIndicator={false}
           bounces={false}
           contentContainerClassName='flex gap-5'
-          renderItem={({item})=><FeaturedCard/>}
+          renderItem={({item})=><FeaturedCard item={item}/>}
           />
 
           <View className='flex flex-row items-center justify-between mt-5'>

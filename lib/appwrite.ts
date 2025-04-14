@@ -35,7 +35,7 @@ export const signIn=async (email:string,password:string)=>{
       const session=await account.createEmailPasswordSession(email,password);
       return session;
    } catch (error) {
-      console.error("Log In error",error);
+      //console.error("Log In error",error);
       throw error;
    }
 }
@@ -68,7 +68,6 @@ export async function getLatestProperties()
          config.propertiesCollectionId!,
          [Query.orderAsc('$createdAt'),Query.limit(5)]
       )   
-      console.log(JSON.stringify(result.documents))
       return result.documents as Property[];
    } 
    catch (error) {
@@ -81,6 +80,8 @@ export async function getProperties({filter ,query,limit}:{filter:string;query:s
 {
    try {
       const buildQuery=[Query.orderDesc('$createdAt')];
+      
+
       if(filter && filter!='All')
       {
          buildQuery.push(Query.equal('type',filter));
@@ -95,9 +96,9 @@ export async function getProperties({filter ,query,limit}:{filter:string;query:s
          ]))
       }
 
-      if(limit)
+      if(filter=='All')
       {
-         buildQuery.push(Query.limit(limit));
+         buildQuery.push(Query.limit(6));
       }
 
       const result=await databases.listDocuments(
@@ -105,7 +106,6 @@ export async function getProperties({filter ,query,limit}:{filter:string;query:s
          config.propertiesCollectionId!,
          buildQuery
       )   
-      //console.log(result.documents)
       return result.documents as Property[];
    } 
    catch (error) {
