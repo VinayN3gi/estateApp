@@ -6,7 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "restate",
-    "platforms": ["ios", "android","web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -35,20 +39,35 @@
         }
       ],
       [
-        "expo-font",{
-        "fonts": [
-          "./assets/fonts/Rubik-Bold.tff",
-          "./assets/fonts/Rubik-ExtraBold.tff",
-          "./assets/fonts/Rubik-Light.tff",
-          "./assets/fonts/Rubik-Medium.tff",
-          "./assets/fonts/Rubik-Regular.tff",
-          "./assets/fonts/Rubik-SemiBold.tff"
-        ]
-      }
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Rubik-Bold.tff",
+            "./assets/fonts/Rubik-ExtraBold.tff",
+            "./assets/fonts/Rubik-Light.tff",
+            "./assets/fonts/Rubik-Medium.tff",
+            "./assets/fonts/Rubik-Regular.tff",
+            "./assets/fonts/Rubik-SemiBold.tff"
+          ]
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6124bd8a-2ae3-435b-802b-736a10af57cb"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/6124bd8a-2ae3-435b-802b-736a10af57cb"
     }
   }
 }
